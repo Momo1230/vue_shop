@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+    function extractRoutePaths(fileContent) {
+        const ROUTE_PATH_REG = /path:\s*\'([^\']*)\',/g;
+        let result;
+        let routePaths = [];
+        while ((result = ROUTE_PATH_REG.exec(fileContent)) !== null) {
+            routePaths.push(`'${result[1]}'`);
+        }
+        return routePaths;
+    }
+    var fileContent = "import error_404 from '@/views/help/404';\n" +
+        "import error_invalid from '@/views/help/invalid';\n" +
+        "\n" +
+        "\n" +
+        "export default {\n" +
+        "    routes: [\n" +
+        "    \t//{path: '/:lang([a-z]{2})?/:other([0-9a-zA-Z-]+)/:cpath(p[-_][a-zA-Z0-9-]+).html', name:'product', component: Product},\n" +
+        "        {path: '/:lang([a-z]{2})?/404.html',name:'error_404', component: error_404},\n" +
+        "        {path: '/:lang([a-z]{2})?/*', name: 'error_404', component: error_404}\n" +
+        "   ]\n" +
+        "}";
+    console.log(extractRoutePaths(fileContent))
+</script>
+</body>
+</html>
